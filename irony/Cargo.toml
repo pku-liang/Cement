@@ -1,0 +1,6 @@
+[workspace]
+
+members = [
+  "irony",
+  "irony_cmt",
+]

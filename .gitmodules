@@ -1,0 +1,3 @@
+[submodule "irony"]
+	path = irony
+	url = git@github.com:KEKE046/irony.git

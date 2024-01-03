@@ -1,0 +1,5 @@
+/target
+.metals
+.vscode
+_*.rs
+irony_macros/*

@@ -1,0 +1,16 @@
+max_width = 90
+use_small_heuristics = "Max"
+group_imports = "StdExternalCrate"
+imports_granularity = "Module"
+condense_wildcard_suffixes = true
+fn_params_layout = "Compressed"
+fn_single_line = true
+overflow_delimited_expr = true
+reorder_impl_items = true
+struct_lit_single_line = true
+struct_lit_width = 40
+use_field_init_shorthand = true
+use_try_shorthand = true
+where_single_line = true
+match_block_trailing_comma = true
+tab_spaces = 2

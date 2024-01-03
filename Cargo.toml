@@ -1,0 +1,7 @@
+[workspace]
+members = [
+  "cement",
+  "cement_macros",
+  "cement_examples",
+]
+resolver="1"
