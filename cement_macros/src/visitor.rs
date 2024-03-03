@@ -5,6 +5,7 @@ use syn::token::PathSep;
 use syn::visit::Visit;
 use syn::visit_mut::{self, VisitMut};
 use syn::*;
+use quote::quote;
 
 use crate::event::{event_transform, EventStmts};
 

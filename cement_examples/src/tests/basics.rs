@@ -1,4 +1,5 @@
 use cmt::preclude::*;
+use cmt::simulator::*;
 
 #[interface(Default)]
 pub struct Pass {
@@ -36,6 +37,16 @@ pub fn test_top_pass() -> Result<(), ()> {
   TopPass::default().top_m(&mut c);
 
   c.print();
+  
+
+  Simulator::new(&c).test(async move |dut| {
+    dut.poke("i", StateData::new_usize(0, 8));
+    dut.poke("pass.i", StateData::new_usize(2, 8));
+    dut.step().await;
+    // println!("{:?} {:?}", dut.peek("o"), dut.peek("pass.o"));
+    assert_eq!(dut.peek("o"), StateData::new_usize(1, 8));
+    assert_eq!(dut.peek("pass.o"), StateData::new_usize(2, 8));
+  });
 
   Ok(())
 }
@@ -67,8 +78,25 @@ pub fn test_top_bits() -> Result<(), ()> {
 
   TopBits::new(8).top_bits_m(&mut c, 4);
 
-  c.print();
+  // c.print();
 
+  Simulator::new(&c).test(async move |dut| {
+    dut.poke("i", StateData::new_usize(3, 8));
+    dut.step().await;
+    assert_eq!(dut.peek("o"), StateData::new_usize(4, 8));
+  });
+
+  // FIXME: reuse old c cause bug!!
+  let mut c2 = Cmtc::new(CmtcConfig::default());
+  TopBits::new(8).top_bits_m(&mut c2, 3);
+
+  // c.print();
+
+  Simulator::new(&c2).test(async move |dut| {
+    dut.poke("i", StateData::new_usize(3, 8));
+    dut.step().await;
+    assert_eq!(dut.peek("o"), StateData::new_usize(3, 8));
+  });
   Ok(())
 }
 
@@ -96,6 +124,14 @@ fn test_tuple_concat() {
   ConcatTuple::new().concat_tuple_m(&mut c);
 
   c.print();
+
+  Simulator::new(&c).test(async move |dut| {
+    dut.poke("i.0", StateData::new_usize(0b11, 2));
+    dut.poke("i.1", StateData::new_usize(0b001, 3));
+    dut.poke("i.2", StateData::new_usize(0b1010, 4));
+    dut.step().await;
+    assert_eq!(dut.peek("o"), StateData::new_usize(0b110011010, 9));
+  });
 }
 
 #[interface(Default, Copy)]
@@ -116,6 +152,12 @@ fn test_extract_2bits() {
   let mut c = Cmtc::new(CmtcConfig::default());
   Extract2Bits::default().extract_2bits_m(&mut c);
   c.print();
+
+  Simulator::new(&c).test(async move|dut|{
+    dut.poke("i", StateData::new_usize(0b10110001, 8));
+    dut.step().await;
+    assert_eq!(dut.peek("o"), StateData::new_usize(0b01, 2));
+  });
 }
 
 module! {
@@ -132,4 +174,10 @@ fn test_pass_with_wire() {
   let mut c = Cmtc::new(CmtcConfig::default());
   Pass::default().pass_with_wire_m(&mut c);
   c.print();
+
+  Simulator::new(&c).test(async move|dut|{
+    dut.poke("i", StateData::new_usize(98, 8));
+    dut.step().await;
+    assert_eq!(dut.peek("o"), StateData::new_usize(98, 8));
+  });
 }

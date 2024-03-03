@@ -1,4 +1,5 @@
 use cmt::preclude::*;
+use cmt::simulator::StateData;
 
 use super::seq::Clked1To1;
 
@@ -13,9 +14,12 @@ module! {
     sum_k_m(module, k: u32) {
         let sum = reg!(B8, module.content.clk.to_owned());
 
+        // FIXME: if this assigns is later than the write event, sum.rd is moved!
+        module.content.o %= sum.rd;
         let write = event! {
           sum.wr %= sum.rd + module.content.i;
         };
+
 
         let v_step: Vec<_> = (0..k).into_iter().map(|k| {
             Stmt {
@@ -45,10 +49,32 @@ module! {
 }
 
 #[test]
+fn print_sum_k_m() {
+  let mut c = Cmtc::new(CmtcConfig::default());
+  Clked1To1GoDone::default().sum_k_m(&mut c, 3);
+
+  c.elaborate();
+  c.print();
+}
+
+#[test]
 fn test_sum_k_m() {
   let mut c = Cmtc::new(CmtcConfig::default());
   Clked1To1GoDone::default().sum_k_m(&mut c, 3);
-  c.print();
+
+  c.simulate(async move |dut| {
+    dut.keep_poke("content.i", StateData::new_usize(3, 8));
+    dut.poke("protocol.go", StateData::new_bool(true));
+    dut.step().await;
+    assert_eq!(dut.peek("protocol.done"), StateData::new_bool(false));
+    dut.step().await;
+    assert_eq!(dut.peek("protocol.done"), StateData::new_bool(false));
+    dut.step().await;
+    assert_eq!(dut.peek("protocol.done"), StateData::new_bool(false));
+    dut.step().await;
+    assert_eq!(dut.peek("protocol.done"), StateData::new_bool(true));
+    assert_eq!(dut.peek("content.o"), StateData::new_usize(9, 8));
+  });
 }
 
 module! {
@@ -141,9 +167,9 @@ module! {
 
     let stmt = stmt! {
       for i.rd.v_ir_entity_id()[0].unwrap(), i.wr.v_ir_entity_id()[0].unwrap(), Bound::Const(0), Bound::Const(n), true, 1 =>
-        if if_cond => 
+        if if_cond =>
           accumulate
-        else 
+        else
           accumulate_shl1
     };
 
@@ -161,6 +187,7 @@ module! {
 fn test_for_if_sum_macro_m() {
   let mut c = Cmtc::new(CmtcConfig::default());
   Clked1To1GoDone::default().for_if_sum_macro_m(&mut c, 4);
+  c.elaborate();
   c.print();
   // c.print_common();
 }
@@ -193,7 +220,7 @@ module! {
       sum.wr %= sum.rd.to_owned() + module.i.data.to_owned();
       indvar.wr %= indvar.rd + 1.lit(bits_n);
     };
-    
+
     let output = event! {
       ("output") =>
       module.o.data %= sum.rd.to_owned();

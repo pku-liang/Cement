@@ -6,7 +6,9 @@
 #![feature(absolute_path)]
 
 mod compiler;
+mod gir;
 mod hcl;
+pub mod simulator;
 mod std;
 mod utils;
 

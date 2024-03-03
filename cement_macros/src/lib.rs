@@ -4,6 +4,7 @@ use proc_macro::TokenStream;
 use proc_macro2::Ident;
 use syn::parse::Parse;
 use syn::{LitInt, Token};
+use quote::quote;
 
 #[macro_use]
 extern crate proc_macro_error;

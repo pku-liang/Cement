@@ -11,7 +11,3 @@ mod seq;
 mod event;
 
 mod stmt;
-
-mod shuffler;
-
-mod ext;

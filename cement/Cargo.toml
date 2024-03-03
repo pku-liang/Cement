@@ -8,7 +8,14 @@ edition = "2021"
 [dependencies]
 irony_cmt = { path = "../irony/irony_cmt" }
 cmt_macros = { path = "../cement_macros" }
+tgraph = { path = "../tgraph/tgraph" }
+tgraph_macros = { path = "../tgraph/tgraph_macros" }
 itertools = "0.11.0"
-arrayvec = "0.7.2"  
+visible = "0.0.1"
+rithm = "14.0.0"
+arrayvec = "0.7.2"
 array-macro = "2.1.5"
+futures = "0.3"
 log = "0.4.20"
+traiter = "4.0.0"
+bitvec = "1.0.1"

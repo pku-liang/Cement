@@ -1,6 +1,7 @@
 use proc_macro2::TokenStream;
 use syn::parse2;
 use syn::visit_mut::VisitMut;
+use quote::quote;
 
 use crate::module::Module;
 use crate::visitor::HwVisitor;

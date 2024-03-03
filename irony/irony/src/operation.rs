@@ -295,7 +295,7 @@ macro_rules! op_def_one {
                 $(
                     $(
                         $(
-                            ${ignore(attr_hash)}
+                            ${ignore($attr_hash)}
                             self.$attr.hash(env.get_hasher().deref_mut());
                             // println!("\thash {:?}", self.$attr);
                         )?

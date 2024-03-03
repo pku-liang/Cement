@@ -5,6 +5,7 @@ use syn::token::Plus;
 use syn::{
   parse2, DataStruct, DeriveInput, Field, GenericParam, Token, TypeParam, TypeParamBound,
 };
+use quote::quote;
 
 pub(crate) fn struct_decl(input: TokenStream) -> TokenStream {
   let derive_input: Result<DeriveInput, _> = parse2(input);

@@ -5,6 +5,8 @@ use syn::spanned::Spanned;
 use syn::visit_mut::VisitMut;
 use syn::{parse2, token, Block, Generics, Pat, PatType, Token, Type, Expr};
 
+use quote::quote;
+
 use crate::visitor::HwVisitor;
 
 pub(crate) struct IdentEqExpr {

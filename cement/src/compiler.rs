@@ -4,11 +4,12 @@ use std::panic::Location;
 use std::path::{absolute, PathBuf};
 
 use irony_cmt::{
-  Assign, CmtIR, EntityId, Environ, HwInput, HwInstance, HwModule, HwOutput, OpEnum,
-  OpId, PassEnum, PassManagerTrait, Region, RegionId, RemoveEventPass, RemoveSelectPass,
-  RemoveUnaryPass, ReorderPass,
+  Assign, CmtIR, EntityEnum, EntityId, Environ, HwInput, HwInstance, HwModule, HwOutput,
+  OpEnum, OpId, PassEnum, PassManagerTrait, Region, RegionId, RemoveEventPass,
+  RemoveSelectPass, RemoveUnaryPass, ReorderPass,
 };
 
+use crate::gir;
 use crate::hcl::Interface;
 
 mod module_stack;
@@ -30,7 +31,10 @@ mod config;
 pub use config::*;
 
 mod stmt;
+use futures::Future;
 pub use stmt::*;
+
+use super::simulator::{SimCoroInterface, Simulator};
 
 pub struct Cmtc {
   pub ir: CmtIR,
@@ -95,18 +99,39 @@ impl Cmtc {
   }
 
   pub fn print_common(&mut self) {
-    self.run_passes(vec![ReorderPass.into(), RemoveEventPass.into(), RemoveSelectPass.into()], vec![
-      self.module_op_id_iter().collect(),
-      self.module_op_id_iter().collect(),
-      self.module_op_id_iter().collect(),
-    ]);
+    self.run_passes(
+      vec![ReorderPass.into(), RemoveEventPass.into(), RemoveSelectPass.into()],
+      vec![
+        self.module_op_id_iter().collect(),
+        self.module_op_id_iter().collect(),
+        self.module_op_id_iter().collect(),
+      ],
+    );
     self
       .module_op_id_iter()
       .for_each(|module_op_id| println!("{}", self.ir.print_op(module_op_id)));
   }
 
-  
-  fn clean_workspace (&mut self) {
+  pub fn elaborate(&mut self) {
+    self.run_gir_passes();
+
+    self.run_passes(
+      vec![
+        ReorderPass.into(),
+        RemoveEventPass.into(),
+        RemoveSelectPass.into(),
+        RemoveUnaryPass.into(),
+      ],
+      vec![
+        self.module_op_id_iter().collect(),
+        self.module_op_id_iter().collect(),
+        self.module_op_id_iter().collect(),
+        self.module_op_id_iter().collect(),
+      ],
+    );
+  }
+
+  fn clean_workspace(&mut self) {
     let workspace_dir = self.config.workspace_path();
     match fs::remove_dir_all(workspace_dir.to_owned()) {
       Ok(_) => {
@@ -117,7 +142,6 @@ impl Cmtc {
       },
     }
   }
-
 
   pub fn print_to_file(&mut self) -> PathBuf {
     self.run_passes(
@@ -225,5 +249,19 @@ impl Cmtc {
     self.generate_verilog_to_files();
     self.generate_ip_tcl();
     self.generate_other_tcl();
+  }
+
+  pub fn run_gir_passes(&mut self) {
+    let graph = gir::passes::all_passes(self);
+    gir::passes::retrieve_cmtc(self, graph);
+  }
+
+  pub fn simulate<FuncT, FutureT>(&mut self, test_func: FuncT)
+  where
+    FuncT: FnOnce(SimCoroInterface) -> FutureT,
+    FutureT: Future<Output = ()> + Send + 'static,
+  {
+    self.elaborate();
+    Simulator::new(self).test(test_func)
   }
 }

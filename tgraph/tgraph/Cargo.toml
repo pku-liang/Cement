@@ -1,10 +1,11 @@
 [package]
-name = "cement_examples"
+name = "tgraph"
 version = "0.1.0"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-cmt = { path = "../cement" }
-bitvec = "1.0.1"
+visible = "0.0.1"
+uuid = { version = "1.4.1", features = ["v4", "fast-rng"] }
+tgraph_macros = { path = "../tgraph_macros" }

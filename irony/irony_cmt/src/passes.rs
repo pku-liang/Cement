@@ -171,13 +171,23 @@ impl PassTrait<(), ()> for RemoveEventPass {
             let mut only_to_be_selected = true;
             for def in defs {
               wire_guarded_table.insert(def.to_owned(), cond.to_owned());
-              let times_be_used = env.get_uses(def.to_owned()).len();
+              // let times_be_used = env.get_uses(def.to_owned()).len();
+
+              let times_be_used_outside = 0;
+              // for use_id in env.get_uses(def.to_owned()) {
+              //   let use_op = env.get_op(use_id);
+              //   if use_op.get_regions().len() == 0 {
+              //     times_be_used_outside += 1;
+              //   }
+              // }
+
               let times_to_be_selected = wire_to_be_selected_table
                 .get(&def)
                 .to_owned()
                 .map(|x| x.to_owned())
                 .unwrap_or(0);
-              only_to_be_selected &= times_be_used == times_to_be_selected;
+
+              only_to_be_selected &= times_be_used_outside == times_to_be_selected;
             }
 
             if only_to_be_selected {
@@ -186,7 +196,7 @@ impl PassTrait<(), ()> for RemoveEventPass {
                 op.set_parent(Some(region));
               });
             } else {
-              panic!("defs in when body must be only used in select")
+              // panic!("defs in when body must be only used by select or operations in the same when")
             }
           }
 
@@ -348,6 +358,7 @@ impl PassTrait<(), ()> for RemoveSelectPass {
             };
 
             let mut last = default;
+            let mut mux_i = 0;
             for (cond, value) in conds.iter().zip(values.iter()).rev() {
               let cond = cond.to_owned().expect("must be Some");
               let value = value.to_owned().expect("must be Some");
@@ -378,7 +389,7 @@ impl PassTrait<(), ()> for RemoveSelectPass {
                 {
                   let mut wire = IRWire::new(
                     data_type,
-                    Some((name + "_mux").into()),
+                    Some((name + "_mux" + &mux_i.to_string()).into()),
                     Some(debug),
                     Some(location),
                   );
@@ -405,7 +416,8 @@ impl PassTrait<(), ()> for RemoveSelectPass {
               );
 
               new_included_op.push(mux_op);
-
+              mux_i += 1;
+              
               last = mux_wire;
             }
 

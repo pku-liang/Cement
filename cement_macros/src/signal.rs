@@ -4,6 +4,8 @@ use syn::spanned::Spanned;
 use syn::token::Plus;
 use syn::{parse2, parse_quote_spanned, DataStruct, DeriveInput, Field, TypeParamBound, GenericParam, TypeParam, Token};
 
+use quote::quote;
+
 use crate::interface::*;
 
 fn signal_lit_gen(signal_input: DeriveInput) -> Result<TokenStream, ()> {

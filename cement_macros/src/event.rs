@@ -2,6 +2,7 @@ use proc_macro2::TokenStream;
 use syn::parse::Parse;
 use syn::visit_mut::VisitMut;
 use syn::*;
+use quote::quote;
 
 use crate::visitor::{HwVisitor, PunctratedExprWrapper};
 

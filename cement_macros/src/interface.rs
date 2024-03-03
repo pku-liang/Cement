@@ -6,6 +6,7 @@ use syn::{
   parse2, parse_quote, parse_quote_spanned, DataStruct, DeriveInput, Field, LitInt,
   LitStr, Token,
 };
+use quote::quote;
 
 pub(crate) fn ifc_flip_gen(ifc_input: DeriveInput) -> Result<DeriveInput, ()> {
   let DeriveInput { attrs, vis, ident, generics, data } = ifc_input;

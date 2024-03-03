@@ -3,6 +3,7 @@ use syn::parse::Parse;
 use syn::punctuated::Punctuated;
 use syn::token::Comma;
 use syn::{parenthesized, parse2, Expr, Token};
+use quote::quote;
 
 struct Instance {
   module_name: Ident,
