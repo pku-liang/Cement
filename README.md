@@ -1,4 +1,12 @@
-# Cement
+# Cement: Streamlining FPGA Hardware Design with Cycle-Deterministic eHDL and Synthesis
+
+Cement is a hardware design framework, which encompasses the embedded HDL (eHDL), CmtHDL and the compiler, CmtC, providing a better programming framework for FPGA.
+CmtHDL introduces event-based procedural specification alongside RTL description, empowering designers to describe hardware productively at a higher level of abstraction while maintaining cycle-deterministic behavior.
+CmtC provides a comprehensive compilation workflow that includes analyzing the timing behavior of the hardware and conducting synthesis to yield solutions with anticipated performance for FPGAs.
+
+<img src="./figs/framework.png" width="50%"/>
+
+<!-- ![Cement framework](./figs/framework.png) -->
 
 ## File Structure
 
@@ -33,6 +41,13 @@ Then, initialize the submodules: `irony` for IR and passes, `tgraph` for control
 
 ```bash
 git submodule update --init
+```
+
+Now, use Cement by adding it as a dependency in your `Cargo.toml` as the `cement_examples` does.
+
+```toml
+[dependencies]
+cmt = { path = <path-to-cement-directory> }
 ```
 
 ### Examples
@@ -118,3 +133,18 @@ We are also working on a Rust-based simulator (under cement/src/simulator) for C
 ## Future Work
 
 Any suggestions or discussions are welcomed. Please feel free to open an issue or contact us.
+
+## Paper
+
+If you find this project useful in your research, please cite our paper that has been recently accepted to FPGA 2024:
+
+```plain
+@inproceedings{xiao2024cement,
+  title={Cement: Streamlining FPGA Hardware Design with Cycle-Deterministic eHDL and Synthesis},
+  author={Xiao, Youwei and Luo, Zizhang and Zhou, Kexing and Liang, Yun},
+  booktitle={Proceedings of the 2024 ACM/SIGDA International Symposium on Field Programmable Gate Arrays (FPGA '24)},
+  year={2024},
+  address={Monterey, CA, USA},
+  doi={10.1145/3626202.363756},
+}
+```
