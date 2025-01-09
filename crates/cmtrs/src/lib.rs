@@ -1,18 +1,31 @@
-//! Cement Hardware Description Language (CmtHDL) is an embedded domain-specific language in Rust for digital chip design.
+//! `cmtrs` is an embedded domain-specific language in Rust for digital chip design.
 //!
-//! Cement provides:
+//! `cmtrs` provides:
 //! + Rule-based RTL hardware description
 //! + Port connections with methods
 //! + Multi-cycle cycle-accurate high level control statements to simplify finite state machines (FSMs)
 //! + Embedded hardware generators for complex parameterization
 //!
-//! # Cement Basics
+//! # `cmtrs` Basics
 //!
+//! ## VERY IMPORTANT!!!
+//!
+//! `cmtrs` use nightly features for span support. You need add a file
+//! `.cargo/config.toml` with the following content: ```toml
+//! [build]
+//! rustflags = "--cfg procmacro2_semver_exempt"
+//! ```
+//! as well as a `rust-toolchain.toml` file with the following content:
+//! ```toml
+//! [toolchain]
+//! channel = "nightly-2024-12-25"
+//! ```
+//! 
 //! ## Interface declaration
 //!
 //! An interface is how a module looks like from the outside, which describes its type parameters, IO ports and methods.
 //!
-//! Modules with the same interface will have the same Rust type in Cement, which means different implementation can be selected by during generation.
+//! Modules with the same interface will have the same Rust type in `cmtrs`, which means different implementation can be selected by during generation.
 //! From this point of view, interfaces are similar to traits.
 //!
 //! Module methods will become real Rust methods after instantiation, which can be invoked to trigger certain behavior of the module.
@@ -337,21 +350,21 @@
 //!
 //! ## Type System
 //!
-//! Currently Cement use completely dynamic types. See [`Type`] for more information.
+//! Currently `cmtrs` use completely dynamic types. See [`Type`] for more information.
 //!
 //! ## Operators
 //!
-//! Currenly Cement support a limitted range of operators. See [`ops`] for more information.
+//! Currenly `cmtrs` support a limitted range of operators. See [`ops`] for more information.
 //!
 //! ## Standard library
 //!
-//! Cement provide some standard templates in hardware, including [`Wire`](stl::Wire), [`Reg`](stl::Reg), [`FIFO`](stl::FIFO) and memories.
+//! `cmtrs` provide some standard templates in hardware, including [`Wire`](stl::Wire), [`Reg`](stl::Reg), [`FIFO`](stl::FIFO) and memories.
 //! See [`stl`] for more information.
 //!
 //! ## Elaboration and Simumlation
 //!
-//! Elaboration and Simulation depends on crate [`cmtc`]. Cement can be elaborated into FIRRTL or System Verilog.
-//! We also support writing testbenches in Cement, which will be transformed into C testbench for Verilator or Khronos.
+//! Elaboration and Simulation depends on crate [`cmtc`]. `cmtrs` can be elaborated into FIRRTL or System Verilog.
+//! We also support writing testbenches in `cmtrs`, which will be transformed into C testbench for Verilator or Khronos.
 //!
 //! ### Elaboration
 //!
@@ -370,7 +383,7 @@
 //!
 //! ### Testbench
 //!
-//! A Cement testbench is a non-synthesizable top-module.
+//! A `cmtrs` testbench is a non-synthesizable top-module.
 //! It can use anything in normal modules, and additonally can use simulation only functionalities like [`Interger`](stl::Integer) and [`sim_print`].
 //!
 //! ```ignore
