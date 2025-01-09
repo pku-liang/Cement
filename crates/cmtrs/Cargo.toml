@@ -11,7 +11,7 @@ categories.workspace = true
 description = "A rule-based embedded HDL in Rust."
 
 [dependencies]
-cmtir = { path = "../cmtir", verison = "^0.1.0" }
+cmtir = { path = "../cmtir", version = "^0.1.0" }
 cmtrs_macros = { path = "../cmtrs_macros", version = "^0.1.0" }
 num = "0.4.3"
 env_logger = "0.11.5"
