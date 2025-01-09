@@ -106,7 +106,8 @@ If you find this project useful in your research, please cite our paper that has
   booktitle={Proceedings of the 2024 ACM/SIGDA International Symposium on Field Programmable Gate Arrays (FPGA '24)},
   year={2024},
   address={Monterey, CA, USA},
-  doi={10.1145/3626202.363756},
+  url = {https://doi.org/10.1145/3626202.3637561},
+  doi = {10.1145/3626202.3637561},
 }
 ```
 
