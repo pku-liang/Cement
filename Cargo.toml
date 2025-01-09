@@ -1,0 +1,26 @@
+[workspace]
+members = ["crates/*", "crates/kir/macros"]
+resolver = "2"
+
+[workspace.package]
+edition = "2021"
+version = "0.1.0"
+authors = [
+    "Youwei Xiao",
+    "Zizhang Luo",
+    "Kexing Zhou",
+    "Nanbing Li",
+]
+repository = "https://github.com/pku-liang/Cement"
+license = "MIT OR Apache-2.0"
+keywords = ["HDL", "hardware", "DSL", "compilers", "verilog", "fpga", "simulation"]
+categories = ["compilers", "simulation"]
+readme = "README.md"
+
+[workspace.dependencies]
+slotmap = { version = "1.0.7", features = ["serde"] }
+indexmap = "2.7.0"
+
+
+[profile.release]
+debug = 1

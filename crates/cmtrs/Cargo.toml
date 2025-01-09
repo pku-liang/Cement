@@ -1,0 +1,35 @@
+[package]
+name = "cmtrs"
+edition.workspace = true
+version.workspace = true
+authors.workspace = true
+readme.workspace = true
+repository.workspace = true
+license.workspace = true
+keywords.workspace = true
+categories.workspace = true
+description = "A rule-based embedded HDL in Rust."
+
+[dependencies]
+cmtir = { path = "../cmtir", verison = "^0.1.0" }
+cmtrs_macros = { path = "../cmtrs_macros", version = "^0.1.0" }
+num = "0.4.3"
+env_logger = "0.11.5"
+chrono = "0.4.38"
+colored = "3.0.0"
+log = "0.4.22"
+clap = { version = "4.5.17", features = ["derive"] }
+location-macros = "0.1.2"
+indexmap.workspace = true
+serde = "1.0.216"
+ttgraph = "0.4.2"
+itertools = "0.14.0"
+fern = "0.7.1"
+paste = "1.0.15"
+proc-macro2 = { version = "1.0.92", features = [
+    "span-locations",
+    "proc-macro",
+] }
+
+[dev-dependencies]
+cmtc = { path = "../cmtc", version = "^0.1.0" }

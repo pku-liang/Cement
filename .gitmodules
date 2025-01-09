@@ -1,0 +1,4 @@
+[submodule "crates/kir"]
+	path = crates/kir
+	url = git@github.com:arch-of-shadow/kir.git
+	branch = uv

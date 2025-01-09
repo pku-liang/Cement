@@ -1,0 +1,21 @@
+[package]
+name = "cmtsim"
+edition.workspace = true
+version.workspace = true
+
+[dependencies]
+cmtir = { path = "../cmtir" }
+cmtc = { path = "../cmtc" }
+env_logger = "0.11.5"
+chrono = "0.4.38"
+colored = "2.1.0"
+log = "0.4.22"
+petgraph = "0.6.5"
+clap = { version = "4.5.17", features = ["derive"] }
+location-macros = "0.1.2"
+indexmap.workspace = true
+num-bigint = "0.4"
+num-traits = "0.2"
+pub-fields = "0.1.1"
+slotmap.workspace = true
+cmtrs = { path = "../cmtrs" }

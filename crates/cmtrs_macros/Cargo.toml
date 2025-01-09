@@ -1,0 +1,31 @@
+[package]
+name = "cmtrs_macros"
+edition.workspace = true
+version.workspace = true
+authors.workspace = true
+readme.workspace = true
+repository.workspace = true
+license.workspace = true
+keywords.workspace = true
+categories.workspace = true
+description = "The macros for cmtrs."
+
+[dependencies]
+proc-macro-error = "1.0"
+proc-macro2 = { version = "1.0", features = ["span-locations", "proc-macro"] }
+quote = { version = "1.0" }
+syn = { version = "2.0", features = [
+    "full",
+    "extra-traits",
+    "visit",
+    "visit-mut",
+    "parsing",
+] }
+change-case = "0.2"
+itertools = "0.14.0"
+
+[dev-dependencies]
+cmtrs = { path = "../cmtrs", version = "^0.1.0" }
+
+[lib]
+proc-macro = true

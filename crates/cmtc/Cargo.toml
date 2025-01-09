@@ -1,0 +1,32 @@
+[package]
+name = "cmtc"
+edition.workspace = true
+version.workspace = true
+authors.workspace = true
+readme.workspace = true
+repository.workspace = true
+license.workspace = true
+keywords.workspace = true
+categories.workspace = true
+description = "The cmtc compiler providing cmtir-based passes to generate backends including FIRRTL, SystemVerilog and simulators."
+
+[dependencies]
+cmtir = { path = "../cmtir", version = "^0.1.0" }
+cmtrs = { path = "../cmtrs", version = "^0.1.0" }
+location-macros = "0.1.2"
+log = "0.4.22"
+num = "0.4.3"
+petgraph = "0.6.5"
+slotmap = "1.0.6"
+regex = "1.11.0"
+serde = { version = "1.0.215", features = ["std", "derive"] }
+# fir = { path = "../fir" }
+indexmap.workspace = true
+
+fern = "0.7.0"
+anyhow = { version = "1.0.93", features = ["std", "backtrace"] }
+itertools = "0.14.0"
+ttgraph = "0.4.2"
+rand = "0.8.5"
+num-traits = "0.2.19"
+pub-fields = "0.1.1"
