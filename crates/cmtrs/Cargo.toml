@@ -30,6 +30,3 @@ proc-macro2 = { version = "1.0.92", features = [
     "span-locations",
     "proc-macro",
 ] }
-
-[dev-dependencies]
-cmtc = { path = "../cmtc", version = "^0.1.0" }
