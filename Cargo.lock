@@ -323,7 +323,6 @@ name = "cmtrs_macros"
 version = "0.1.0"
 dependencies = [
  "change-case",
- "cmtrs",
  "itertools",
  "proc-macro-error",
  "proc-macro2",

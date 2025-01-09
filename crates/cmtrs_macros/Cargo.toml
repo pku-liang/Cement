@@ -24,8 +24,5 @@ syn = { version = "2.0", features = [
 change-case = "0.2"
 itertools = "0.14.0"
 
-[dev-dependencies]
-cmtrs = { path = "../cmtrs", version = "^0.1.0" }
-
 [lib]
 proc-macro = true
