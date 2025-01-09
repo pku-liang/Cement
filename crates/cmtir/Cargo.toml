@@ -11,7 +11,7 @@ categories.workspace = true
 description = "The intermediate representation for Cement (cmt2) languages and compiler tools."
 
 [dependencies]
-kir = { path = "../kir", version = "^0.1.0" }
+kir = { path = "../kir", version = "^0.1.1" }
 location-macros = "0.1.2"
 log = "0.4.22"
 num = "0.4.3"

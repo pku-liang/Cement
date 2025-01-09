@@ -11,8 +11,8 @@ categories.workspace = true
 description = "The cmtc compiler providing cmtir-based passes to generate backends including FIRRTL, SystemVerilog and simulators."
 
 [dependencies]
-cmtir = { path = "../cmtir", version = "^0.1.0" }
-cmtrs = { path = "../cmtrs", version = "^0.1.0" }
+cmtir = { path = "../cmtir", version = "^0.1.1" }
+cmtrs = { path = "../cmtrs", version = "^0.1.1" }
 location-macros = "0.1.2"
 log = "0.4.22"
 num = "0.4.3"
