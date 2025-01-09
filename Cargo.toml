@@ -13,7 +13,7 @@ authors = [
 ]
 repository = "https://github.com/pku-liang/Cement"
 license = "MIT OR Apache-2.0"
-keywords = ["HDL", "hardware", "DSL", "compilers", "verilog", "fpga", "simulation"]
+keywords = ["HDL", "hardware", "DSL", "compilers", "verilog"]
 categories = ["compilers", "simulation"]
 readme = "README.md"
 
