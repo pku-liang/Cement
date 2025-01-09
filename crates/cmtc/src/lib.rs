@@ -18,11 +18,15 @@
 //! ## VERY IMPORTANT!!!
 //!
 //! `cmtrs` use nightly features for span support. You need add a file
-//! `.cargo/config.toml` with the following content: ```toml
+//! `.cargo/config.toml` with the following content: 
+//! 
+//! ```toml
 //! [build]
 //! rustflags = "--cfg procmacro2_semver_exempt"
 //! ```
+//! 
 //! as well as a `rust-toolchain.toml` file with the following content:
+//! 
 //! ```toml
 //! [toolchain]
 //! channel = "nightly-2024-12-25"

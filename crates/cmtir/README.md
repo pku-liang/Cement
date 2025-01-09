@@ -1,5 +1,9 @@
 # cmtir
 
+[<img alt="Static Badge" src="https://img.shields.io/badge/crates-cmtir-orange?style=for-the-badge&logo=rust">](https://crates.io/crates/cmtir)
+[<img alt="Static Badge" src="https://img.shields.io/badge/doc-cmtir-green?style=for-the-badge&logo=docs.rs">](https://docs.rs/cmtir)
+
+
 ## Design
 
 ### Dependent

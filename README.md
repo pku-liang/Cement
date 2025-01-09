@@ -1,5 +1,12 @@
 # Cement: The Next-gen Language & Compiler Powering Efficient Hardware Design
 
+[<img alt="Static Badge" src="https://img.shields.io/badge/-pku--liang%2Fcmt2-blue?style=for-the-badge&logo=github">](https://github.com/pku-liang/Cement/tree/cmt2)
+[<img alt="Static Badge" src="https://img.shields.io/badge/crates-cmtc-orange?style=for-the-badge&logo=rust">](https://crates.io/crates/cmtc)
+[<img alt="Static Badge" src="https://img.shields.io/badge/crates-cmtrs-orange?style=for-the-badge&logo=rust">](https://crates.io/crates/cmtrs)
+[<img alt="Static Badge" src="https://img.shields.io/badge/doc-cmtc-green?style=for-the-badge&logo=docs.rs">](https://docs.rs/cmtc)
+[<img alt="Static Badge" src="https://img.shields.io/badge/doc-cmtrs-green?style=for-the-badge&logo=docs.rs">](https://docs.rs/cmtrs)
+
+
 ## Introduction
 
 Cement (now referred to as `cmt2`!) represents an innovative framework that endows users with a wealth of language capabilities and compiler functionalities, all geared towards facilitating efficient hardware design. 
